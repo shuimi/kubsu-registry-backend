@@ -21,7 +21,7 @@ interface JournalCreationAttrs {
 @Table({
     tableName: 'journals',
 })
-export class Journals extends Model<Journals, JournalCreationAttrs> {
+export class Journal extends Model<Journal, JournalCreationAttrs> {
     @ApiProperty({ example: '42', description: 'Unique journal identifier' })
     @Column({
         type: DataType.INTEGER,

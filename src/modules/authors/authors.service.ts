@@ -16,7 +16,7 @@ export class AuthorsService {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
-    async getAuthorsList() {
+    async getAuthorsList(page: number, items: number, searchQuery: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
@@ -25,10 +25,6 @@ export class AuthorsService {
     }
 
     async deleteAuthor(id: string) {
-        throw new NotImplementedException({ message: 'Not implemented' });
-    }
-
-    async searchAuthorsByName(query: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 }

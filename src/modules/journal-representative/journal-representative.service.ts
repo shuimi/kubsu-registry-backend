@@ -8,19 +8,19 @@ export class JournalRepresentativeService {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
-    getProfilesList() {
+    async getProfilesList(page: number, items: number, searchQuery: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
-    getProfileById(id: string) {
+    async getProfileById(id: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
-    updateProfile(id: string, dto: CreateJournalRepresentativeDto) {
+    async updateProfile(id: string, dto: CreateJournalRepresentativeDto) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
-    deleteProfile(id: string) {
+    async deleteProfile(id: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 }

@@ -15,7 +15,7 @@ import { JournalRepresentativeModule } from './modules/journal-representative/jo
 import { Profiles } from './modules/users/models/profiles.model';
 import { Publications } from './modules/publications/models/publications.model';
 import { PublicationAuthors } from './modules/publications/models/publication-authors.model';
-import { Journals } from './modules/journals/models/journal.model';
+import { Journal } from './modules/journals/models/journal.model';
 import { JournalAuthors } from './modules/journals/models/journal-authors.model';
 import { Author } from './modules/authors/models/authors.model';
 import { AuthorScientificDisciplines } from './modules/authors/models/author-scientific-disciplines.model';
@@ -43,7 +43,7 @@ import { JournalRepresentativeProfile } from './modules/journal-representative/m
                 Profiles,
                 Publications,
                 PublicationAuthors,
-                Journals,
+                Journal,
                 JournalAuthors,
                 Author,
                 AuthorScientificDisciplines,

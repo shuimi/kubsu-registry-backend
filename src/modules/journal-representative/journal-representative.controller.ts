@@ -5,6 +5,7 @@ import {
     Param,
     Post,
     Put,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -32,9 +33,17 @@ export class JournalRepresentativeController {
     @ApiResponse({ status: 200, type: [JournalRepresentativeProfile] })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
-    @Get()
-    getProfilesList() {
-        return this.representativeService.getProfilesList();
+    @Get('/?')
+    getProfilesList(
+        @Query('page') page: number,
+        @Query('items') items: number,
+        @Query('query') searchQuery: string,
+    ) {
+        return this.representativeService.getProfilesList(
+            page,
+            items,
+            searchQuery,
+        );
     }
 
     @ApiOperation({ summary: 'Get representative by id' })

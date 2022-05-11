@@ -5,6 +5,7 @@ import {
     Param,
     Post,
     Put,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -28,9 +29,13 @@ export class AuthorsController {
 
     @ApiOperation({ summary: 'Get an authors list' })
     @ApiResponse({ status: 200, type: [Author] })
-    @Get()
-    getAuthorsList() {
-        return this.authorsService.getAuthorsList();
+    @Get('/?')
+    getAuthorsList(
+        @Query('page') page: number,
+        @Query('items') items: number,
+        @Query('query') searchQuery: string,
+    ) {
+        return this.authorsService.getAuthorsList(page, items, searchQuery);
     }
 
     @ApiOperation({ summary: 'Get an author by id' })
@@ -45,13 +50,6 @@ export class AuthorsController {
     @Put('/:id')
     updateAuthor(@Param('id') id: string, @Body() dto: CreateAuthorDto) {
         return this.authorsService.updateAuthor(id, dto);
-    }
-
-    @ApiOperation({ summary: 'Search authors by name' })
-    @ApiResponse({ status: 200, type: [Author] })
-    @Get('/search/:query')
-    searchAuthors(@Param('query') query: string) {
-        return this.authorsService.searchAuthorsByName(query);
     }
 
     @ApiOperation({ summary: 'Delete author by id' })

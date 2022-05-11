@@ -11,7 +11,7 @@ import { Profiles } from '../../users/models/profiles.model';
 import { PublicationAuthors } from '../../publications/models/publication-authors.model';
 import { Publications } from '../../publications/models/publications.model';
 import { JournalAuthors } from '../../journals/models/journal-authors.model';
-import { Journals } from '../../journals/models/journal.model';
+import { Journal } from '../../journals/models/journal.model';
 
 interface AuthorCreationAttrs {
     profileId: number;
@@ -71,6 +71,6 @@ export class Author extends Model<Author, AuthorCreationAttrs> {
     @BelongsToMany(() => Publications, () => PublicationAuthors)
     publications: Publications[];
 
-    @BelongsToMany(() => Journals, () => JournalAuthors)
-    journals: Journals[];
+    @BelongsToMany(() => Journal, () => JournalAuthors)
+    journals: Journal[];
 }

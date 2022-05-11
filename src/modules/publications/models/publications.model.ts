@@ -10,7 +10,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Author } from '../../authors/models/authors.model';
 import { PublicationAuthors } from './publication-authors.model';
-import { Journals } from '../../journals/models/journal.model';
+import { Journal } from '../../journals/models/journal.model';
 
 interface PublicationCreationAttrs {
     title: string;
@@ -84,10 +84,10 @@ export class Publications extends Model<
     @BelongsToMany(() => Author, () => PublicationAuthors)
     authors: Author[];
 
-    @BelongsTo(() => Journals)
-    journals: Journals;
+    @BelongsTo(() => Journal)
+    journals: Journal;
 
-    @ForeignKey(() => Journals)
+    @ForeignKey(() => Journal)
     @Column({
         allowNull: true,
         type: DataType.INTEGER,
