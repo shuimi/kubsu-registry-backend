@@ -5,15 +5,15 @@ import {
     Model,
     Table,
 } from 'sequelize-typescript';
-import { User } from '../../modules/users/users.model';
-import { Role } from '../../modules/roles/models/roles.model';
+import { Author } from '../../authors/models/authors.model';
+import { Journals } from './journal.model';
 
 @Table({
-    tableName: 'user_roles',
+    tableName: 'journal_authors',
     createdAt: false,
     updatedAt: false,
 })
-export class UserRoles extends Model<UserRoles> {
+export class JournalAuthors extends Model<JournalAuthors> {
     @Column({
         type: DataType.INTEGER,
         unique: true,
@@ -22,15 +22,15 @@ export class UserRoles extends Model<UserRoles> {
     })
     id: number;
 
-    @ForeignKey(() => Role)
+    @ForeignKey(() => Journals)
     @Column({
         type: DataType.INTEGER,
     })
-    roleId: number;
+    journalId: number;
 
-    @ForeignKey(() => User)
+    @ForeignKey(() => Author)
     @Column({
         type: DataType.INTEGER,
     })
-    userId: number;
+    authorId: number;
 }

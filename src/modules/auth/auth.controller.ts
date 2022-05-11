@@ -1,6 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import {
+    Body,
+    Controller,
+    Post,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthCredentialsDto } from '../users/dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
 
 @ApiTags('Auth')
@@ -8,13 +15,19 @@ import { AuthService } from './auth.service';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    @ApiOperation({ summary: 'Authorize and get access token' })
+    @ApiResponse({ status: 200 })
+    @UsePipes(ValidationPipe)
     @Post('/login')
-    login(@Body() dto: CreateUserDto) {
+    login(@Body() dto: AuthCredentialsDto) {
         return this.authService.login(dto);
     }
 
+    @ApiOperation({ summary: 'Register new account' })
+    @ApiResponse({ status: 200 })
+    @UsePipes(ValidationPipe)
     @Post('/registration')
-    register(@Body() dto: CreateUserDto) {
+    register(@Body() dto: AuthCredentialsDto) {
         return this.authService.registration(dto);
     }
 }

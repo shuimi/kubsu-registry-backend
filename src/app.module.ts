@@ -2,16 +2,25 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './modules/users/users.model';
+import { User } from './modules/users/models/users.model';
 import { RolesModule } from './modules/roles/roles.module';
 import { Role } from './modules/roles/models/roles.model';
-import { UserRoles } from './shared/models/user-roles.model';
+import { UserRoles } from './modules/users/models/user-roles.model';
 import { AuthModule } from './modules/auth/auth.module';
-import { ProfileModule } from './modules/profiles/profile.module';
-import { RequestsModule } from './modules/requests/requests.module';
 import { PublicationsModule } from './modules/publications/publications.module';
 import { JournalsModule } from './modules/journals/journals.module';
 import { AuthorsModule } from './modules/authors/authors.module';
+import { RequestsModule } from './requests/requests.module';
+import { JournalRepresentativeModule } from './modules/journal-representative/journal-representative.module';
+import { Profiles } from './modules/users/models/profiles.model';
+import { Publications } from './modules/publications/models/publications.model';
+import { PublicationAuthors } from './modules/publications/models/publication-authors.model';
+import { Journals } from './modules/journals/models/journal.model';
+import { JournalAuthors } from './modules/journals/models/journal-authors.model';
+import { Author } from './modules/authors/models/authors.model';
+import { AuthorScientificDisciplines } from './modules/authors/models/author-scientific-disciplines.model';
+import { AuthorSocialMediaLinks } from './modules/authors/models/author-social-media-link.model';
+import { JournalRepresentativeProfile } from './modules/journal-representative/models/journal-representative-profile.model';
 
 @Module({
     controllers: [],
@@ -27,17 +36,30 @@ import { AuthorsModule } from './modules/authors/authors.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User, Role, UserRoles],
+            models: [
+                User,
+                Role,
+                UserRoles,
+                Profiles,
+                Publications,
+                PublicationAuthors,
+                Journals,
+                JournalAuthors,
+                Author,
+                AuthorScientificDisciplines,
+                AuthorSocialMediaLinks,
+                JournalRepresentativeProfile,
+            ],
             autoLoadModels: true,
         }),
         UsersModule,
         RolesModule,
         AuthModule,
-        ProfileModule,
-        RequestsModule,
         PublicationsModule,
         JournalsModule,
         AuthorsModule,
+        RequestsModule,
+        JournalRepresentativeModule,
     ],
 })
 export class AppModule {}

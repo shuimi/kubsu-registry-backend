@@ -6,8 +6,8 @@ import {
     Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../../users/users.model';
-import { UserRoles } from '../../../shared/models/user-roles.model';
+import { User } from '../../users/models/users.model';
+import { UserRoles } from '../../users/models/user-roles.model';
 
 interface RoleCreationAttrs {
     id: string;

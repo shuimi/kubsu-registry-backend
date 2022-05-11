@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from './users.model';
+import { User } from './models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateUserDto } from './dto/create-user.dto';
+import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { RolesService } from '../roles/roles.service';
 import { GiveRoleDto } from './dto/give-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
@@ -14,18 +14,27 @@ export class UsersService {
         private rolesService: RolesService,
     ) {}
 
-    async createUser(dto: CreateUserDto) {
-        const email = this.getUserByEmail(dto.email);
-        if (email) {
+    async createUser(dto: AuthCredentialsDto) {
+        const userByEmail = await this.getUserByEmail(dto.email);
+        if (userByEmail) {
             throw new HttpException(
                 'User already exists',
                 HttpStatus.BAD_REQUEST,
             );
         }
-        const user = await this.userRepository.create(dto);
+
         const role = await this.rolesService.getRoleById('USER');
+        if (!role) {
+            throw new HttpException(
+                `Mom, I\'m on TV`,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+
+        const user = await this.userRepository.create(dto);
         await user.$set('roles', [role.id]);
         user.roles = [role];
+
         return user;
     }
 
@@ -61,6 +70,17 @@ export class UsersService {
         }
         user.banned = true;
         user.banReason = dto.banReason;
+        await user.save();
+        return user;
+    }
+
+    async unban(id: string) {
+        const user = await this.userRepository.findByPk(id);
+        if (!user) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        user.banned = false;
+        user.banReason = null;
         await user.save();
         return user;
     }

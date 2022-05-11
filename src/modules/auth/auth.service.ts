@@ -4,11 +4,11 @@ import {
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { AuthCredentialsDto } from '../users/dto/auth-credentials.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
-import { User } from '../users/users.model';
+import { User } from '../users/models/users.model';
 
 @Injectable()
 export class AuthService {
@@ -19,12 +19,12 @@ export class AuthService {
         private jstService: JwtService,
     ) {}
 
-    async login(dto: CreateUserDto) {
+    async login(dto: AuthCredentialsDto) {
         const user = await this.validateUser(dto);
         return this.generateToken(user);
     }
 
-    async registration(dto: CreateUserDto) {
+    async registration(dto: AuthCredentialsDto) {
         const candidate = await this.usersService.getUserByEmail(dto.email);
         if (candidate) {
             throw new HttpException('User exists', HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ export class AuthService {
         };
     }
 
-    private async validateUser(dto: CreateUserDto): Promise<User> {
+    private async validateUser(dto: AuthCredentialsDto): Promise<User> {
         const user = await this.usersService.getUserByEmail(dto.email);
         const passwordEquals = await bcrypt.compare(
             dto.password,
