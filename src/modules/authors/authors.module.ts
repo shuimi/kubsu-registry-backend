@@ -3,7 +3,7 @@ import { AuthorsController } from './authors.controller';
 import { AuthorsService } from './authors.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Author } from './models/authors.model';
-import { Publications } from '../publications/models/publications.model';
+import { Publication } from '../publications/models/publications.model';
 import { PublicationAuthors } from '../publications/models/publication-authors.model';
 import { AuthModule } from '../auth/auth.module';
 
@@ -11,7 +11,7 @@ import { AuthModule } from '../auth/auth.module';
     controllers: [AuthorsController],
     providers: [AuthorsService],
     imports: [
-        SequelizeModule.forFeature([Author, Publications, PublicationAuthors]),
+        SequelizeModule.forFeature([Author, Publication, PublicationAuthors]),
         AuthModule,
     ],
 })

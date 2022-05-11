@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -69,7 +70,7 @@ export class JournalRepresentativeController {
     @ApiResponse({ status: 200, type: JournalRepresentativeProfile })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
-    @Get('/:id')
+    @Delete('/:id')
     deleteProfile(@Param('id') id: string) {
         return this.representativeService.deleteProfile(id);
     }

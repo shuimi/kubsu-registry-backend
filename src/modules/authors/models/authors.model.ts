@@ -9,7 +9,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Profiles } from '../../users/models/profiles.model';
 import { PublicationAuthors } from '../../publications/models/publication-authors.model';
-import { Publications } from '../../publications/models/publications.model';
+import { Publication } from '../../publications/models/publications.model';
 import { JournalAuthors } from '../../journals/models/journal-authors.model';
 import { Journal } from '../../journals/models/journal.model';
 
@@ -68,8 +68,8 @@ export class Author extends Model<Author, AuthorCreationAttrs> {
     })
     bio: string;
 
-    @BelongsToMany(() => Publications, () => PublicationAuthors)
-    publications: Publications[];
+    @BelongsToMany(() => Publication, () => PublicationAuthors)
+    publications: Publication[];
 
     @BelongsToMany(() => Journal, () => JournalAuthors)
     journals: Journal[];

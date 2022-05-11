@@ -5,7 +5,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Journal } from './models/journal.model';
 import { JournalAuthors } from './models/journal-authors.model';
 import { Author } from '../authors/models/authors.model';
-import { Publications } from '../publications/models/publications.model';
+import { Publication } from '../publications/models/publications.model';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
@@ -16,7 +16,7 @@ import { AuthModule } from '../auth/auth.module';
             Journal,
             JournalAuthors,
             Author,
-            Publications,
+            Publication,
         ]),
         AuthModule,
     ],

@@ -5,7 +5,7 @@ import {
     Model,
     Table,
 } from 'sequelize-typescript';
-import { Publications } from './publications.model';
+import { Publication } from './publications.model';
 import { Author } from '../../authors/models/authors.model';
 
 @Table({
@@ -22,7 +22,7 @@ export class PublicationAuthors extends Model<PublicationAuthors> {
     })
     id: number;
 
-    @ForeignKey(() => Publications)
+    @ForeignKey(() => Publication)
     @Column({
         type: DataType.INTEGER,
     })

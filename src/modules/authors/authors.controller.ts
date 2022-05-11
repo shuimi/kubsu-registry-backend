@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -56,7 +57,7 @@ export class AuthorsController {
     @ApiResponse({ status: 200, type: Author })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
-    @Get('/:id')
+    @Delete('/:id')
     deleteAuthor(@Param('id') id: string) {
         return this.authorsService.deleteAuthor(id);
     }

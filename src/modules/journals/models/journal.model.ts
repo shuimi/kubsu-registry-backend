@@ -10,7 +10,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { JournalRepresentativeProfile } from '../../journal-representative/models/journal-representative-profile.model';
 import { Author } from '../../authors/models/authors.model';
-import { Publications } from '../../publications/models/publications.model';
+import { Publication } from '../../publications/models/publications.model';
 import { JournalAuthors } from './journal-authors.model';
 
 interface JournalCreationAttrs {
@@ -79,6 +79,6 @@ export class Journal extends Model<Journal, JournalCreationAttrs> {
     @BelongsToMany(() => Author, () => JournalAuthors)
     authors: Author[];
 
-    @HasMany(() => Publications)
-    publications: Publications[];
+    @HasMany(() => Publication)
+    publications: Publication[];
 }

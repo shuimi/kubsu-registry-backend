@@ -21,10 +21,7 @@ interface PublicationCreationAttrs {
 @Table({
     tableName: 'publications',
 })
-export class Publications extends Model<
-    Publications,
-    PublicationCreationAttrs
-> {
+export class Publication extends Model<Publication, PublicationCreationAttrs> {
     @ApiProperty({
         example: '42',
         description: 'Unique publication identifier',

@@ -13,7 +13,7 @@ import { AuthorsModule } from './modules/authors/authors.module';
 import { RequestsModule } from './requests/requests.module';
 import { JournalRepresentativeModule } from './modules/journal-representative/journal-representative.module';
 import { Profiles } from './modules/users/models/profiles.model';
-import { Publications } from './modules/publications/models/publications.model';
+import { Publication } from './modules/publications/models/publications.model';
 import { PublicationAuthors } from './modules/publications/models/publication-authors.model';
 import { Journal } from './modules/journals/models/journal.model';
 import { JournalAuthors } from './modules/journals/models/journal-authors.model';
@@ -41,7 +41,7 @@ import { JournalRepresentativeProfile } from './modules/journal-representative/m
                 Role,
                 UserRoles,
                 Profiles,
-                Publications,
+                Publication,
                 PublicationAuthors,
                 Journal,
                 JournalAuthors,

@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -60,7 +61,7 @@ export class JournalsController {
     @ApiResponse({ status: 200, type: Journal })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
-    @Get('/:id')
+    @Delete('/:id')
     deleteJournal(@Param('id') id: string) {
         return this.journalsService.deleteJournal(id);
     }
