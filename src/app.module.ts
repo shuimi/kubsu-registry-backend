@@ -10,9 +10,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PublicationsModule } from './modules/publications/publications.module';
 import { JournalsModule } from './modules/journals/journals.module';
 import { AuthorsModule } from './modules/authors/authors.module';
-import { RequestsModule } from './requests/requests.module';
+import { RequestsModule } from './modules/requests/requests.module';
 import { JournalRepresentativeModule } from './modules/journal-representative/journal-representative.module';
-import { Profiles } from './modules/users/models/profiles.model';
+import { Profile } from './modules/profiles/models/profiles.model';
 import { Publication } from './modules/publications/models/publications.model';
 import { PublicationAuthors } from './modules/publications/models/publication-authors.model';
 import { Journal } from './modules/journals/models/journal.model';
@@ -21,6 +21,7 @@ import { Author } from './modules/authors/models/authors.model';
 import { AuthorScientificDisciplines } from './modules/authors/models/author-scientific-disciplines.model';
 import { AuthorSocialMediaLinks } from './modules/authors/models/author-social-media-link.model';
 import { JournalRepresentativeProfile } from './modules/journal-representative/models/journal-representative-profile.model';
+import { ProfilesModule } from './modules/profiles/profiles.module';
 
 @Module({
     controllers: [],
@@ -40,7 +41,7 @@ import { JournalRepresentativeProfile } from './modules/journal-representative/m
                 User,
                 Role,
                 UserRoles,
-                Profiles,
+                Profile,
                 Publication,
                 PublicationAuthors,
                 Journal,
@@ -60,6 +61,7 @@ import { JournalRepresentativeProfile } from './modules/journal-representative/m
         AuthorsModule,
         RequestsModule,
         JournalRepresentativeModule,
+        ProfilesModule,
     ],
 })
 export class AppModule {}

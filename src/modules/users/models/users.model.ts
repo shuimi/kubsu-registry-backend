@@ -1,5 +1,4 @@
 import {
-    BelongsTo,
     BelongsToMany,
     Column,
     DataType,
@@ -11,7 +10,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from './user-roles.model';
-import { Profiles } from './profiles.model';
+import { Profile } from '../../profiles/models/profiles.model';
 import { JournalRepresentativeProfile } from '../../journal-representative/models/journal-representative-profile.model';
 
 interface UserCreationAttrs {
@@ -67,16 +66,8 @@ export class User extends Model<User, UserCreationAttrs> {
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[];
 
-    @BelongsTo(() => Profiles)
-    profiles: Profiles;
-
-    @ForeignKey(() => Profiles)
-    @Column({
-        type: DataType.INTEGER,
-        unique: true,
-        allowNull: true,
-    })
-    profilesId: number;
+    @ForeignKey(() => Profile)
+    profileId: number;
 
     @HasOne(() => JournalRepresentativeProfile)
     journalRepresentativeProfileId: JournalRepresentativeProfile;

@@ -1,15 +1,19 @@
-import { IsString, Length } from 'class-validator';
+import { IsNumber, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateAuthorDto {
-    // @ApiProperty({ example: 'ADMIN', description: 'Role identifier token' })
-    // @Length(2, 16, {
-    //     message: 'Must be longer than 2 and shorter than 16 symbols',
-    // })
-    // @IsString({ message: 'Must be a string' })
-    // readonly roleId: string;
-    //
-    // @ApiProperty({ example: 'Administrator', description: 'Role description' })
-    // @IsString({ message: 'Must be a string' })
-    // readonly description: string;
+    @ApiProperty({
+        example: '42',
+        description: 'Unique author profile identifier',
+    })
+    @IsNumber({}, { message: 'Must be a number' })
+    readonly profileId: number;
+
+    @ApiProperty({ example: '42', description: 'Unique user identifier' })
+    @IsNumber({}, { message: 'Must be a number' })
+    readonly userId: number;
+
+    @ApiProperty({ example: 'About me', description: 'Bio' })
+    @IsString({ message: 'Must be a string' })
+    bio: string;
 }

@@ -9,7 +9,7 @@ import {
     Query,
     UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/decorators/auth-roles.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { JournalsService } from './journals.service';
@@ -32,11 +32,29 @@ export class JournalsController {
 
     @ApiOperation({ summary: 'Get journals list' })
     @ApiResponse({ status: 200, type: [Journal] })
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Get('/?')
     getJournalsList(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.journalsService.getJournalsList(page, items, searchQuery);
     }

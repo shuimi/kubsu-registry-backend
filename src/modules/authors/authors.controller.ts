@@ -8,8 +8,10 @@ import {
     Put,
     Query,
     UseGuards,
+    UsePipes,
+    ValidationPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Author } from './models/authors.model';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
@@ -23,6 +25,7 @@ export class AuthorsController {
 
     @ApiOperation({ summary: 'Register an author' })
     @ApiResponse({ status: 200, type: Author })
+    @UsePipes(ValidationPipe)
     @Post()
     createAuthor(@Body() dto: CreateAuthorDto) {
         return this.authorsService.createAuthor(dto);
@@ -30,11 +33,29 @@ export class AuthorsController {
 
     @ApiOperation({ summary: 'Get an authors list' })
     @ApiResponse({ status: 200, type: [Author] })
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Get('/?')
     getAuthorsList(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.authorsService.getAuthorsList(page, items, searchQuery);
     }

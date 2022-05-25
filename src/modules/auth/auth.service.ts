@@ -16,7 +16,7 @@ export class AuthService {
 
     constructor(
         private usersService: UsersService,
-        private jstService: JwtService,
+        private jwtService: JwtService,
     ) {}
 
     async login(dto: AuthCredentialsDto) {
@@ -40,7 +40,7 @@ export class AuthService {
     private generateToken(user: User) {
         const payload = { email: user.email, id: user.id, roles: user.roles };
         return {
-            token: this.jstService.sign(payload),
+            token: this.jwtService.sign(payload),
         };
     }
 

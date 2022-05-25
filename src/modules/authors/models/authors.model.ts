@@ -3,11 +3,12 @@ import {
     Column,
     DataType,
     ForeignKey,
+    HasMany,
     Model,
     Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
-import { Profiles } from '../../users/models/profiles.model';
+import { Profile } from '../../profiles/models/profiles.model';
 import { PublicationAuthors } from '../../publications/models/publication-authors.model';
 import { Publication } from '../../publications/models/publications.model';
 import { JournalAuthors } from '../../journals/models/journal-authors.model';
@@ -36,7 +37,7 @@ export class Author extends Model<Author, AuthorCreationAttrs> {
         example: '42',
         description: 'Unique author profile identifier',
     })
-    @ForeignKey(() => Profiles)
+    @ForeignKey(() => Profile)
     @Column({
         type: DataType.INTEGER,
         unique: true,

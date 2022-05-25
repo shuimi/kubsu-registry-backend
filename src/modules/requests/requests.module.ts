@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RequestsController } from './requests.controller';
 import { RequestsService } from './requests.service';
-import { AuthModule } from '../modules/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     controllers: [RequestsController],

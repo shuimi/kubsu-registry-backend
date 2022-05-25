@@ -9,7 +9,7 @@ import {
     Query,
     UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/decorators/auth-roles.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { JournalRepresentativeService } from './journal-representative.service';
@@ -34,6 +34,24 @@ export class JournalRepresentativeController {
     @ApiResponse({ status: 200, type: [JournalRepresentativeProfile] })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Get('/?')
     getProfilesList(
         @Query('page') page: number,

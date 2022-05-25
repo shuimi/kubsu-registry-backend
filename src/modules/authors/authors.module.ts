@@ -6,12 +6,18 @@ import { Author } from './models/authors.model';
 import { Publication } from '../publications/models/publications.model';
 import { PublicationAuthors } from '../publications/models/publication-authors.model';
 import { AuthModule } from '../auth/auth.module';
+import { User } from '../users/models/users.model';
 
 @Module({
     controllers: [AuthorsController],
     providers: [AuthorsService],
     imports: [
-        SequelizeModule.forFeature([Author, Publication, PublicationAuthors]),
+        SequelizeModule.forFeature([
+            Author,
+            User,
+            Publication,
+            PublicationAuthors,
+        ]),
         AuthModule,
     ],
 })
