@@ -54,9 +54,9 @@ export class JournalRepresentativeController {
     })
     @Get('/?')
     getProfilesList(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.representativeService.getProfilesList(
             page,

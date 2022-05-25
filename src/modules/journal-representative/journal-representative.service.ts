@@ -53,7 +53,10 @@ export class JournalRepresentativeService {
             },
             limit: items ? items : 10,
             offset: items ? (page ? items * page : 0) : page ? page * 10 : 0,
-            include: { all: true },
+            include: {
+                model: User,
+                attributes: ['id', 'email', 'banned', 'banReason', 'profileId'],
+            },
         });
         return profiles;
     }
