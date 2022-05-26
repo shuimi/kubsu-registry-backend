@@ -6,6 +6,7 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Journal } from '../journals/models/journal.model';
 import { Author } from '../authors/models/authors.model';
 import { Publication } from '../publications/models/publications.model';
+import { Status } from '../../shared/domain-types';
 
 @ApiTags('Requests moderation')
 @Controller('requests')
@@ -130,7 +131,7 @@ export class RequestsController {
     @Put('/journals/:id/?')
     updateJournalRegistrationRequestStatus(
         @Param('id') id: string,
-        @Query('status') status: string,
+        @Query('status') status: Status,
     ) {
         return this.requestsService.updateJournalStatus(id, status);
     }
@@ -148,7 +149,7 @@ export class RequestsController {
     @Put('/authors/:id/?')
     updateAuthorRegistrationRequestStatus(
         @Param('id') id: string,
-        @Query('status') status: string,
+        @Query('status') status: Status,
     ) {
         return this.requestsService.updateAuthorStatus(id, status);
     }
@@ -166,7 +167,7 @@ export class RequestsController {
     @Put('/publications/:id/?')
     updatePublicationRegistrationRequestStatus(
         @Param('id') id: string,
-        @Query('status') status: string,
+        @Query('status') status: Status,
     ) {
         return this.requestsService.updatePublicationStatus(id, status);
     }
