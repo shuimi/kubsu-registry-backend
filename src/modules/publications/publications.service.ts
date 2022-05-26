@@ -21,24 +21,22 @@ export class PublicationsService {
         page: number,
         items: number,
         searchQuery: string,
-        status: Status,
+        status?: Status,
     ) {
         const publications = await this.publicationsRepository.findAndCountAll({
-            where: searchQuery
-                ? {
-                      [Op.or]: {
-                          title: {
-                              [Op.iLike]: `%${searchQuery}%`,
-                          },
-                          description: {
-                              [Op.iLike]: `%${searchQuery}%`,
-                          },
-                      },
-                      status: status,
-                  }
-                : {
-                      status: status,
-                  },
+            where: {
+                ...(searchQuery && {
+                    [Op.or]: {
+                        title: {
+                            [Op.iLike]: `%${searchQuery}%`,
+                        },
+                        description: {
+                            [Op.iLike]: `%${searchQuery}%`,
+                        },
+                    },
+                }),
+                ...(status && { status: status }),
+            },
             limit: items && items,
             offset: (page && items && items * page) || (page && page),
             include: { all: true },

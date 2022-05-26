@@ -57,21 +57,19 @@ export class AuthorsService {
         page: number,
         items: number,
         searchQuery: string,
-        status: Status,
+        status?: Status,
     ) {
         const authors = await this.authorsRepository.findAndCountAll({
-            where: searchQuery
-                ? {
-                      [Op.or]: {
-                          bio: {
-                              [Op.iLike]: `%${searchQuery}%`,
-                          },
-                      },
-                      status: status,
-                  }
-                : {
-                      status: status,
-                  },
+            where: {
+                ...(searchQuery && {
+                    [Op.or]: {
+                        bio: {
+                            [Op.iLike]: `%${searchQuery}%`,
+                        },
+                    },
+                }),
+                ...(status && { status: status }),
+            },
             limit: items && items,
             offset: (page && items && items * page) || (page && page),
             include: { all: true },

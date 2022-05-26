@@ -32,24 +32,22 @@ export class JournalsService {
         page: number,
         items: number,
         searchQuery: string,
-        status: Status,
+        status?: Status,
     ) {
         const journals = await this.journalsRepository.findAndCountAll({
-            where: searchQuery
-                ? {
-                      [Op.or]: {
-                          name: {
-                              [Op.iLike]: `%${searchQuery}%`,
-                          },
-                          description: {
-                              [Op.iLike]: `%${searchQuery}%`,
-                          },
-                      },
-                      status: status,
-                  }
-                : {
-                      status: status,
-                  },
+            where: {
+                ...(searchQuery && {
+                    [Op.or]: {
+                        name: {
+                            [Op.iLike]: `%${searchQuery}%`,
+                        },
+                        description: {
+                            [Op.iLike]: `%${searchQuery}%`,
+                        },
+                    },
+                }),
+                ...(status && { status: status }),
+            },
             limit: items ? items : 10,
             offset: items ? (page ? items * page : 0) : page ? page * 10 : 0,
             include: { all: true },
