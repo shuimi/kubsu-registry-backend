@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { NotImplementedException } from '../../shared/exceptions/not-implemented.exception';
+import { InjectModel } from '@nestjs/sequelize';
+import { Publication } from '../publications/models/publications.model';
 
 @Injectable()
 export class RequestsService {
+    constructor(
+        @InjectModel(Publication)
+        private publicationsRepository: typeof Publication,
+    ) {}
+
     async getJournalsRequestsList(
         page: number,
         items: number,

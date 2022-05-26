@@ -41,7 +41,6 @@ export class Publication extends Model<Publication, PublicationCreationAttrs> {
     })
     @Column({
         type: DataType.STRING,
-        unique: true,
         allowNull: true,
     })
     title: string;
@@ -53,7 +52,6 @@ export class Publication extends Model<Publication, PublicationCreationAttrs> {
     })
     @Column({
         type: DataType.STRING,
-        unique: true,
         allowNull: true,
     })
     description: string;
@@ -64,7 +62,6 @@ export class Publication extends Model<Publication, PublicationCreationAttrs> {
     })
     @Column({
         type: DataType.STRING,
-        unique: true,
         allowNull: true,
     })
     link: string;
@@ -88,7 +85,6 @@ export class Publication extends Model<Publication, PublicationCreationAttrs> {
     @Column({
         allowNull: true,
         type: DataType.INTEGER,
-        unique: true,
     })
     journalId: number;
 }

@@ -9,10 +9,6 @@ export class CreateAuthorDto {
     @IsNumber({}, { message: 'Must be a number' })
     readonly profileId: number;
 
-    @ApiProperty({ example: '42', description: 'Unique user identifier' })
-    @IsNumber({}, { message: 'Must be a number' })
-    readonly userId: number;
-
     @ApiProperty({ example: 'About me', description: 'Bio' })
     @IsString({ message: 'Must be a string' })
     bio: string;

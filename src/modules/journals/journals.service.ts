@@ -4,6 +4,7 @@ import { CreateJournalDto } from './dto/create-journal.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Journal } from './models/journal.model';
 import { Op } from 'sequelize';
+import { Status } from '../../shared/domain-types';
 
 @Injectable()
 export class JournalsService {
@@ -27,18 +28,28 @@ export class JournalsService {
         return createdJournal;
     }
 
-    async getJournalsList(page: number, items: number, searchQuery: string) {
+    async getJournalsList(
+        page: number,
+        items: number,
+        searchQuery: string,
+        status: Status,
+    ) {
         const journals = await this.journalsRepository.findAndCountAll({
-            where: searchQuery && {
-                [Op.or]: {
-                    name: {
-                        [Op.iLike]: `%${searchQuery}%`,
-                    },
-                    description: {
-                        [Op.iLike]: `%${searchQuery}%`,
-                    },
-                },
-            },
+            where: searchQuery
+                ? {
+                      [Op.or]: {
+                          name: {
+                              [Op.iLike]: `%${searchQuery}%`,
+                          },
+                          description: {
+                              [Op.iLike]: `%${searchQuery}%`,
+                          },
+                      },
+                      status: status,
+                  }
+                : {
+                      status: status,
+                  },
             limit: items ? items : 10,
             offset: items ? (page ? items * page : 0) : page ? page * 10 : 0,
             include: { all: true },

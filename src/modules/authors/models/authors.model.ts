@@ -1,9 +1,9 @@
 import {
+    BelongsTo,
     BelongsToMany,
     Column,
     DataType,
     ForeignKey,
-    HasMany,
     Model,
     Table,
 } from 'sequelize-typescript';
@@ -44,13 +44,8 @@ export class Author extends Model<Author, AuthorCreationAttrs> {
     })
     profileId: number;
 
-    @ApiProperty({ example: '42', description: 'Unique user identifier' })
-    @Column({
-        type: DataType.INTEGER,
-        unique: true,
-        allowNull: true,
-    })
-    userId: number;
+    @BelongsTo(() => Profile)
+    profile: Profile;
 
     @ApiProperty({ example: 'CONFIRMED', description: 'Author account status' })
     @Column({

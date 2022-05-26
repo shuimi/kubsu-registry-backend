@@ -14,5 +14,6 @@ import { AuthModule } from '../auth/auth.module';
         SequelizeModule.forFeature([Author, Publication, PublicationAuthors]),
         AuthModule,
     ],
+    exports: [PublicationsService],
 })
 export class PublicationsModule {}

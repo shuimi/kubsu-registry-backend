@@ -56,7 +56,12 @@ export class JournalsController {
         @Query('items') items?: number,
         @Query('query') searchQuery?: string,
     ) {
-        return this.journalsService.getJournalsList(page, items, searchQuery);
+        return this.journalsService.getJournalsList(
+            page,
+            items,
+            searchQuery,
+            'APPROVED',
+        );
     }
 
     @ApiOperation({ summary: 'Get journal by id' })

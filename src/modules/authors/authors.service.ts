@@ -3,47 +3,49 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Author } from './models/authors.model';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { NotImplementedException } from '../../shared/exceptions/not-implemented.exception';
-import { User } from '../users/models/users.model';
 import { Op } from 'sequelize';
+import { Profile } from '../profiles/models/profiles.model';
+import { Status } from '../../shared/domain-types';
 
 @Injectable()
 export class AuthorsService {
     constructor(
         @InjectModel(Author) private authorsRepository: typeof Author,
-        @InjectModel(User) private usersRepository: typeof User,
+        @InjectModel(Profile) private profilesRepository: typeof Profile,
     ) {}
 
     async createAuthor(dto: CreateAuthorDto) {
-        const authorProfile = await this.authorsRepository.findAll({
-            where: { userId: dto.userId },
+        const author = await this.authorsRepository.findAll({
+            where: { profileId: dto.profileId },
             include: { all: true },
         });
 
-        if (authorProfile) {
+        if (author) {
             throw new HttpException(
                 'Author already exist',
                 HttpStatus.BAD_REQUEST,
             );
         }
 
-        const user = await this.usersRepository.findOne({
-            where: { id: dto.userId },
+        const profile = await this.profilesRepository.findOne({
+            where: { id: dto.profileId },
         });
 
-        if (user.profileId == null) {
+        if (!profile) {
             throw new HttpException(
                 'User have no profile, you have to create user profile firstly',
                 HttpStatus.BAD_REQUEST,
             );
         }
 
-        const author = await this.authorsRepository.create(dto);
-        return author;
+        const createdAuthor = await this.authorsRepository.create(dto);
+        return createdAuthor;
     }
 
     async getAuthorById(id: string) {
         const author = await this.authorsRepository.findOne({
             where: { id: id },
+            include: { all: true },
         });
         if (author) {
             return author;
@@ -51,15 +53,25 @@ export class AuthorsService {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    async getAuthorsList(page: number, items: number, searchQuery: string) {
+    async getAuthorsList(
+        page: number,
+        items: number,
+        searchQuery: string,
+        status: Status,
+    ) {
         const authors = await this.authorsRepository.findAndCountAll({
-            where: searchQuery && {
-                [Op.or]: {
-                    bio: {
-                        [Op.iLike]: `%${searchQuery}%`,
-                    },
-                },
-            },
+            where: searchQuery
+                ? {
+                      [Op.or]: {
+                          bio: {
+                              [Op.iLike]: `%${searchQuery}%`,
+                          },
+                      },
+                      status: status,
+                  }
+                : {
+                      status: status,
+                  },
             limit: items && items,
             offset: (page && items && items * page) || (page && page),
             include: { all: true },

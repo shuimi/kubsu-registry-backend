@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
-import { RequestsService } from './requests.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/decorators/auth-roles.decorator';
+import { RequestsService } from './requests.service';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Journal } from '../journals/models/journal.model';
 import { Author } from '../authors/models/authors.model';
@@ -14,13 +14,31 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Get journal registration requests' })
     @ApiResponse({ status: 200, type: [Journal] })
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Get('/journals/?')
     getJournalRegistrationRequestsList(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.requestsService.getJournalsRequestsList(
             page,
@@ -31,13 +49,31 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Get author registration requests' })
     @ApiResponse({ status: 200, type: [Author] })
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Get('/authors/?')
     getAuthorRegistrationRequestsList(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.requestsService.getAuthorsRequestsList(
             page,
@@ -48,13 +84,31 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Get publication registration requests' })
     @ApiResponse({ status: 200, type: [Publication] })
+    @ApiQuery({
+        name: 'page',
+        type: Number,
+        description: 'Page number, optional, 1 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'items',
+        type: Number,
+        description: 'Items amount, optional, 10 by default',
+        required: false,
+    })
+    @ApiQuery({
+        name: 'query',
+        type: String,
+        description: 'Search query, optional',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Get('/publications/?')
     publicationRegistrationRequests(
-        @Query('page') page: number,
-        @Query('items') items: number,
-        @Query('query') searchQuery: string,
+        @Query('page') page?: number,
+        @Query('items') items?: number,
+        @Query('query') searchQuery?: string,
     ) {
         return this.requestsService.getPublicationsRequestsList(
             page,
@@ -65,6 +119,12 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Update journal registration request by id' })
     @ApiResponse({ status: 200, type: [Journal] })
+    @ApiQuery({
+        name: 'status',
+        type: String,
+        description: 'New request status',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Put('/journals/:id/?')
@@ -77,6 +137,12 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Update author registration request by id' })
     @ApiResponse({ status: 200, type: [Author] })
+    @ApiQuery({
+        name: 'status',
+        type: String,
+        description: 'New request status',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Put('/authors/:id/?')
@@ -89,6 +155,12 @@ export class RequestsController {
 
     @ApiOperation({ summary: 'Update publication registration request by id' })
     @ApiResponse({ status: 200, type: [Publication] })
+    @ApiQuery({
+        name: 'status',
+        type: String,
+        description: 'New request status',
+        required: false,
+    })
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Put('/publications/:id/?')

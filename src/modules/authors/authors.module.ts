@@ -7,6 +7,7 @@ import { Publication } from '../publications/models/publications.model';
 import { PublicationAuthors } from '../publications/models/publication-authors.model';
 import { AuthModule } from '../auth/auth.module';
 import { User } from '../users/models/users.model';
+import { Profile } from '../profiles/models/profiles.model';
 
 @Module({
     controllers: [AuthorsController],
@@ -17,8 +18,10 @@ import { User } from '../users/models/users.model';
             User,
             Publication,
             PublicationAuthors,
+            Profile,
         ]),
         AuthModule,
     ],
+    exports: [AuthorsService],
 })
 export class AuthorsModule {}

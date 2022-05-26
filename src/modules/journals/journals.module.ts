@@ -20,5 +20,6 @@ import { AuthModule } from '../auth/auth.module';
         ]),
         AuthModule,
     ],
+    exports: [JournalsService],
 })
 export class JournalsModule {}

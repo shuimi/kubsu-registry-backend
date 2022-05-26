@@ -57,7 +57,12 @@ export class AuthorsController {
         @Query('items') items?: number,
         @Query('query') searchQuery?: string,
     ) {
-        return this.authorsService.getAuthorsList(page, items, searchQuery);
+        return this.authorsService.getAuthorsList(
+            page,
+            items,
+            searchQuery,
+            'APPROVED',
+        );
     }
 
     @ApiOperation({ summary: 'Get an author by id' })
