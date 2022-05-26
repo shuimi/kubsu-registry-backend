@@ -81,6 +81,10 @@ export class AuthorsService {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
+    async updateAuthorStatus(id: string, status: Status) {
+        throw new NotImplementedException({ message: 'Not implemented' });
+    }
+
     async deleteAuthor(id: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }

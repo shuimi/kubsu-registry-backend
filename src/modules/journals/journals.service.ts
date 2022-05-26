@@ -84,6 +84,10 @@ export class JournalsService {
         throw new HttpException('Journal not found', HttpStatus.NOT_FOUND);
     }
 
+    async updateJournalStatus(id: string, status: Status) {
+        throw new NotImplementedException({ message: 'Not implemented' });
+    }
+
     async deleteJournal(id: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }

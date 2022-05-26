@@ -52,6 +52,10 @@ export class PublicationsService {
         throw new NotImplementedException({ message: 'Not implemented' });
     }
 
+    async updatePublicationStatus(id: string, status: Status) {
+        throw new NotImplementedException({ message: 'Not implemented' });
+    }
+
     async deletePublication(id: string) {
         throw new NotImplementedException({ message: 'Not implemented' });
     }

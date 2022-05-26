@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { NotImplementedException } from '../../shared/exceptions/not-implemented.exception';
-import { InjectModel } from '@nestjs/sequelize';
-import { Publication } from '../publications/models/publications.model';
+import { AuthorsService } from '../authors/authors.service';
+import { JournalsService } from '../journals/journals.service';
+import { PublicationsService } from '../publications/publications.service';
+import { Status } from '../../shared/domain-types';
 
 @Injectable()
 export class RequestsService {
     constructor(
-        @InjectModel(Publication)
-        private publicationsRepository: typeof Publication,
+        private authorsService: AuthorsService,
+        private journalsService: JournalsService,
+        private publicationsService: PublicationsService,
     ) {}
 
     async getJournalsRequestsList(
@@ -15,7 +17,7 @@ export class RequestsService {
         items: number,
         searchQuery: string,
     ) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+        return this.journalsService.getJournalsList(page, items, searchQuery);
     }
 
     async getAuthorsRequestsList(
@@ -23,7 +25,7 @@ export class RequestsService {
         items: number,
         searchQuery: string,
     ) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+        return this.authorsService.getAuthorsList(page, items, searchQuery);
     }
 
     async getPublicationsRequestsList(
@@ -31,18 +33,22 @@ export class RequestsService {
         items: number,
         searchQuery: string,
     ) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+        return this.publicationsService.getPublicationsList(
+            page,
+            items,
+            searchQuery,
+        );
     }
 
-    updateJournalStatus(id: string, status: string) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+    updateJournalStatus(id: string, status: Status) {
+        return this.journalsService.updateJournalStatus(id, status);
     }
 
-    updateAuthorStatus(id: string, status: string) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+    updateAuthorStatus(id: string, status: Status) {
+        return this.authorsService.updateAuthorStatus(id, status);
     }
 
-    updatePublicationStatus(id: string, status: string) {
-        throw new NotImplementedException({ message: 'Not implemented' });
+    updatePublicationStatus(id: string, status: Status) {
+        return this.publicationsService.updatePublicationStatus(id, status);
     }
 }
